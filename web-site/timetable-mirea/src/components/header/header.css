@@ -1,0 +1,108 @@
+.header{
+    position: absolute;
+    width: 100vw;
+    height: 8vh;
+    left: 0px;
+    top: 0px;
+    
+    background: #42494D;
+}
+
+.header_left{
+    position: absolute;
+    width: 80px;
+    height: 30px;
+    left: 35px;
+    top: 10px;
+}
+
+.main_header{
+    position: absolute;
+    width: 66px;
+    height: 30px;
+    left: 7px;
+    top: 0px;
+
+    text-decoration: none;
+    font-family: 'Oswald';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 30px;
+
+    /* identical to box height */
+    display: flex;
+    align-items: center;
+    text-align: center;
+    text-transform: capitalize;
+
+    color: #F6F7EB;
+}
+
+.header_right{
+    position: absolute;
+    width: 270px;
+    height: 30px;
+    left: 1135px;
+    top: 10px;
+}
+
+.dropdown{
+    position: absolute;
+    width: 85px;
+    height: 30px;
+    left: 0px;
+    top: 0px;
+}
+
+.dropdown_content{
+    position: absolute;
+    width: 150px;
+    height: 30px;
+    left: 120px;
+    top: 0px;
+}
+
+.settings{
+    position: absolute;
+    width: 85px;
+    height: 30px;
+    left: 0px;
+    top: 0px;
+    
+    text-decoration: none;
+    font-family: 'Oswald';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 30px;
+    
+    /* identical to box height */
+    display: flex;
+    align-items: center;
+    text-align: center;
+    
+    color: #F6F7EB;
+}
+
+.login{
+    position: absolute;
+    width: 111px;
+    height: 30px;
+    left: 20px;
+    top: 0px;
+    
+    text-decoration: none;
+    font-family: 'Oswald';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 30px;
+    
+    /* identical to box height */
+    display: flex;
+    align-items: center;
+    text-align: center;
+    
+    color: #F6F7EB;
+}

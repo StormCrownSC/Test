@@ -1,0 +1,10 @@
+FROM mongo:4.4
+
+# Копирование скрипта и настройка переменных окружения
+COPY ./mongo/mongo-init.js /docker-entrypoint-initdb.d/mongo-init.js:ro
+
+# Открытие порта
+EXPOSE 27017
+
+# Запуск MongoDB
+CMD ["mongod"]

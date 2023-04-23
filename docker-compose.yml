@@ -1,0 +1,194 @@
+version: "3.9"
+
+services:
+
+  mongodb:
+    build: 
+      context: ./
+      dockerfile:   mongo/Dockerfile.mongo
+    hostname: timetable.mongodb
+    volumes:
+      - ./mongo/data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+    env_file:
+      - mongo/.env
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo timetable.mongodb:27017/test --quiet
+      interval: 1m
+      timeout: 10s
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 2s
+        max_attempts: 3
+        window: 10m
+
+  mongo-express:
+    image: mongo-express
+    ports:
+      - "8085:8081"
+    environment:
+        - ME_CONFIG_MONGODB_SERVER=timetable.mongodb
+        - ME_CONFIG_MONGODB_PORT=27017
+        - ME_CONFIG_MONGODB_AUTH_USERNAME=${MONGO_ROOT_USER}
+        - ME_CONFIG_MONGODB_AUTH_PASSWORD=${MONGO_ROOT_PASSWORD}
+        - ME_CONFIG_BASICAUTH_USERNAME=${MONGOEXPRESS_LOGIN}
+        - ME_CONFIG_BASICAUTH_PASSWORD=${MONGOEXPRESS_PASSWORD}
+    env_file:
+      - mongo/.env
+    depends_on:
+      mongodb:
+        condition: service_healthy
+
+  postgres:
+    hostname: timetable.postgres
+    build: 
+      context: ./
+      dockerfile:   postgresql/Dockerfile.postgres
+    volumes:
+      - ./postgresql/data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d ${DB_NAME} -U ${POSTGRES_USER}"]
+      interval: 1m
+      timeout: 10s
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 2s
+        max_attempts: 3
+        window: 10m
+    
+  web:
+    hostname: timetable.mirea
+    build:
+      context: ./
+      dockerfile: web-site/Dockerfile.web-site
+    env_file:
+      - .env
+    healthcheck:
+      test: curl -sS http://timetable.mirea:3000 || echo 1
+      interval: 1m
+      timeout: 10s
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 2s
+        max_attempts: 3
+        window: 120s
+    depends_on:
+      postgres:
+        condition: service_healthy
+      mongodb:
+        condition: service_healthy
+
+  api:
+    hostname: api.mirea
+    build:
+      context: ./
+      dockerfile: api/Dockerfile.api
+    stdin_open: true
+    tty: true
+    env_file:
+      - .env
+    healthcheck:
+      test: curl -sS http://api.timetable:9888/api/timetable || echo 1
+      interval: 1m
+      timeout: 10s
+    deploy:
+      resources:
+        limits:
+          cpus: '0.4'
+          memory: '4g'
+      restart_policy:
+        condition: on-failure
+        delay: 2s
+        max_attempts: 3
+        window: 10m
+    depends_on:
+      postgres:
+        condition: service_healthy
+      mongodb:
+        condition: service_healthy
+
+  nginx:
+    build:
+      context: ./
+      dockerfile: nginx/Dockerfile.nginx
+    ports:
+      - '8080:8080'
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD", "service", "nginx", "status"]
+      interval: 1m
+      timeout: 10s
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 2s
+        max_attempts: 3
+        window: 10m
+    depends_on:
+      api:
+        condition: service_healthy
+      web:
+        condition: service_healthy
+
+  parser:
+    hostname: parser.mirea
+    build:
+      context: ./
+      dockerfile: parser/Dockerfile.parser
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "9009"]
+      interval: 20m
+      timeout: 10s
+    deploy:
+      resources:
+        limits:
+          cpus: '0.3'
+          memory: '3g'
+      restart_policy:
+        condition: on-failure
+        delay: 2s
+        max_attempts: 3
+        window: 1h
+    depends_on:
+      postgres:
+        condition: service_healthy
+      mongodb:
+        condition: service_healthy
+
+  telegram:
+    hostname: telegram.mirea
+    build:
+      context: ./
+      dockerfile: telegram-bot/Dockerfile.telegram-bot
+    stdin_open: true
+    tty: true
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import requests; res = requests.get('https://t.me/MIREA_TimeTableBot'); exit(0) if res.status_code == 200 else exit(1)"]
+      interval: 5m
+      timeout: 10s
+    depends_on:
+      api:
+        condition: service_healthy
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 2s
+        max_attempts: 3
+        window: 1h
