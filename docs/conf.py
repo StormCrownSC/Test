@@ -15,11 +15,11 @@ import sys
 #
 __version__ = '1.0.0'
 
-sys.path.insert(0, os.path.abspath('../telegram-bot'))
+sys.path.insert(0, os.path.abspath('../telegram_bot'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'telegram-bot'
+project = 'telegram_bot'
 copyright = '2023, ИКБО-02-20'
 author = 'ИКБО-02-20'
 language = 'ru'

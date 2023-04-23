@@ -1,6 +1,6 @@
 # pylint: disable=invalid-name
 """
-telegram-bot - анализатор темы текстов.
+telegram_bot - анализатор темы текстов.
 Использование:
     Аргумент -h             Отобразить это сообщение
     Аргумент -i <файл>      Обработать текст из файла
@@ -12,12 +12,12 @@ telegram-bot - анализатор темы текстов.
 
 Полное использование:
 Usage:
-    telegram-bot (-h|--help|--version)
-    telegram-bot [-i=<path>]    [-t=<path>]
-    telegram-bot add <theme>    [-t=<path>]
-    telegram-bot remove <theme> [-t=<path>]
-    telegram-bot list           [-t=<path>]
-    telegram-bot text [-t=<path>] <text>
+    telegram_bot (-h|--help|--version)
+    telegram_bot [-i=<path>]    [-t=<path>]
+    telegram_bot add <theme>    [-t=<path>]
+    telegram_bot remove <theme> [-t=<path>]
+    telegram_bot list           [-t=<path>]
+    telegram_bot text [-t=<path>] <text>
 
 Options:
     <theme>                   Название темы

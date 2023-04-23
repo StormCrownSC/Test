@@ -174,7 +174,7 @@ services:
     hostname: telegram.mirea
     build:
       context: ./
-      dockerfile: telegram-bot/Dockerfile.telegram-bot
+      dockerfile: telegram_bot/Dockerfile.telegram_bot
     stdin_open: true
     tty: true
     env_file:

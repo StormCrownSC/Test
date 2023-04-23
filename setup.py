@@ -11,20 +11,20 @@ def read(fname):
 
 metadata = dict(
     re.findall(
-        r"""__([a-z]+)__ = '([^']+)""", read("telegram-bot/__init__.py")
+        r"""__([a-z]+)__ = '([^']+)""", read("telegram_bot/__init__.py")
     )
 )
 
 setuptools.setup(
-    name='telegram-bot',
+    name='telegram_bot',
     version=metadata["version"],
     author="StormFox",
     description='Проект расписание РТУ-МИРЭА',
     long_description=read("README.md"),
     long_description_content_type="text/markdown",
-    packages=['telegram-bot'],
+    packages=['telegram_bot'],
     entry_points={
-        'console_scripts': ['telegram-bot = telegram_bot.__main__:main']
+        'console_scripts': ['telegram_bot = telegram_bot.__main__:main']
     },
     install_requires=[
         'docopt',

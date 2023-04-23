@@ -7,7 +7,7 @@
 Модуль main
 ------------------------
 
-.. automodule:: telegram-bot.main
+.. automodule:: telegram_bot.main
    :members:
    :undoc-members:
    :show-inheritance:

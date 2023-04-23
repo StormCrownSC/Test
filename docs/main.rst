@@ -9,4 +9,4 @@ Timetable-MIREA
 .. include:: Dlya_polzovatelya.rst
 .. include:: Dlya_programmista.rst
 .. include:: tz.rst
-.. include:: telegram-bot.rst
+.. include:: telegram_bot.rst

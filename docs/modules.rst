@@ -1,7 +1,7 @@
-telegram-bot
+telegram_bot
 ===
 
 .. toctree::
    :maxdepth: 5
 
-   telegram-bot
+   telegram_bot
