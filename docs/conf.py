@@ -16,6 +16,7 @@ import sys
 __version__ = '1.0.0'
 
 sys.path.insert(0, os.path.abspath('../telegram_bot'))
+print(os.getcwd())
 
 # -- Project information -----------------------------------------------------
 
