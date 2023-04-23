@@ -1,4 +1,4 @@
-TextAnalysis
+Timetable-MIREA
 =======================================================
 .. toctree::
    :maxdepth: 5
