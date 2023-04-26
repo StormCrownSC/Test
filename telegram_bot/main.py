@@ -6,13 +6,15 @@ import requests
 import telebot as tb
 from dotenv import load_dotenv
 
-load_dotenv()
 
-BOT_TOKEN = os.getenv('BOT_TOKEN')
+if __name__ == "__main__":
+    load_dotenv()
 
-bot = tb.TeleBot(BOT_TOKEN)
+    BOT_TOKEN = os.getenv('BOT_TOKEN')
 
-print("Бот успешно запущен!")
+    bot = tb.TeleBot(BOT_TOKEN)
+
+    print("Бот успешно запущен!")
 
 
 def get_timetable(key, value, period):
