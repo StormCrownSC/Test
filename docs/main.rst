@@ -6,6 +6,6 @@ Timetable-MIREA
 
 .. _GitHub: https://github.com/StormCrownSC/Test
 
-.. include:: for_user.rst
-.. include:: for_developer.rst
+.. include:: user.rst
+.. include:: developer.rst
 .. include:: telegram_bot.rst

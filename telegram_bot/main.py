@@ -1,3 +1,4 @@
+"""Главный файл"""
 import os
 from datetime import date
 
