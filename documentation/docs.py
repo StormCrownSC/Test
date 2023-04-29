@@ -34,8 +34,8 @@ class Docs():
         # self.read_extra()
     
     def generate_html(self):
-        dest = "documentation" + self.slash + "html"
-        src = "documentation" + self.slash + "template"
+        dest = "./documentation" + self.slash + "html"
+        src = "./documentation" + self.slash + "template"
         copy_tree(src, dest)
 
     def read_conf(self):
@@ -219,7 +219,7 @@ class Docs():
 
     def __del__(self):
         with open("documentation" + self.slash + "html" + self.slash + "index.html", 'w', encoding="utf-8") as index_file:
-            index_file.write(str(self.index_html))
+            index_file.write(str(self.index_html.prettify()))
         with open("documentation" + self.slash + "html" + self.slash + "main.html", 'w', encoding="utf-8") as main_file:
             main_file.write(str(self.main_html))
 
