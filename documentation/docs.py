@@ -202,6 +202,7 @@ class Docs():
         
         if self.data["autodocs"] != "False":
             self.read_title("Комментарии из кода", 1, index, 1, id="Комментарии из кода")
+            index += 1
             self.traverse_directory("./", index)
 
     def traverse_directory(self, path, index):
