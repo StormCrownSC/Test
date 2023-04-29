@@ -5,3 +5,4 @@ author = 'ИКБО-02-20'
 language = 'ru'
 title = Timetable-MIREA
 caption = Содержание
+autodocs = True

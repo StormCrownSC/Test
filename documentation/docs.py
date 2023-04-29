@@ -10,7 +10,7 @@ from concurrent.futures import ThreadPoolExecutor as Pool
 class Docs():
     def __init__(self):
         self.data = {"version": "1.0.0", "project": "", "copyright": "", "author": "", 
-            "language": "en", "title": "", "caption": "Содержание"}
+            "language": "en", "title": "", "caption": "Содержание", "autodocs": "False"}
         self.documentation = ["conf.rst", "index.rst"]
         self.extra_files = list()
         self.caption_list = list()
@@ -94,6 +94,14 @@ class Docs():
                     else:
                         self.read_text_p(line, index, 0)
                         index += 1
+        if self.data["autodocs"] != "False":
+            new_a = self.soup.new_tag("a", attrs={'href': "main.html#" + "Комментарии из кода"})
+            new_a.append("Комментарии из кода")
+            new_li = self.soup.new_tag("li")
+            new_li.append(new_a)
+            ul = self.index_html.find("ul")
+            ul.append(new_li)   
+
         return 0
         # except:
         #     print("Error in index.MD")
@@ -166,6 +174,13 @@ class Docs():
 
             ind.append(copy_a)
             main.append(new_a)
+        if self.data["autodocs"] != "False":
+            new_a = self.soup.new_tag("a", attrs={'href': "main.html#" + "Комментарии из кода"})
+            new_a.append("Комментарии из кода")
+            copy_a = self.soup.new_tag("a", attrs={'href': "main.html#" + "Комментарии из кода"})
+            copy_a.append("Комментарии из кода")
+            ind.append(copy_a)
+            main.append(new_a)
         
     def generate_main(self):
         index = 0
@@ -185,7 +200,9 @@ class Docs():
                             self.read_text_p(line, index, 1)
                             index += 1
         
-        self.traverse_directory("./", index)
+        if self.data["autodocs"] != "False":
+            self.read_title("Комментарии из кода", 1, index, 1, id="Комментарии из кода")
+            self.traverse_directory("./", index)
 
     def traverse_directory(self, path, index):
         for item in os.listdir(path):
@@ -224,12 +241,6 @@ class Docs():
                 return comments
         except:
             pass
-
-    # def __del__(self):
-    #     with open(os.path.join(self.script_dir, 'html' + self.slash + 'index.html'), 'w', encoding="utf-8") as index_file:
-    #         index_file.write(str(self.index_html.prettify()))
-    #     with open(os.path.join(self.script_dir, 'html' + self.slash + 'main.html'), 'w', encoding="utf-8") as main_file:
-    #         main_file.write(str(self.main_html))
 
 
 Docs()
