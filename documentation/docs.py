@@ -17,9 +17,10 @@ class Docs():
         self.slash = "\\" if platform == "linux" or platform == "linux2" else "/"
         self.generate_html()
         self.soup = BeautifulSoup()
-        with open("documentation" + self.slash + "html" + self.slash + "index.html", 'r') as index_file:
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        with open(os.path.join(script_dir, 'html' + self.slash + 'index.html'), 'r') as index_file:
             self.index_html = BeautifulSoup(index_file, "html.parser")
-        with open("documentation" + self.slash + "html" + self.slash + "main.html", 'r') as main_file:
+        with open(os.path.join(script_dir, 'html' + self.slash + 'main.html'), 'r') as main_file:
             self.main_html = BeautifulSoup(main_file, 'html.parser')
         self.main()
 
@@ -31,11 +32,18 @@ class Docs():
             return "Error in index.MD"
         self.generate_side_nav()
         self.generate_main()
-        # self.read_extra()
+
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        with open(os.path.join(script_dir, 'html' + self.slash + 'index.html'), 'w', encoding="utf-8") as index_file:
+            index_file.write(str(self.index_html.prettify()))
+        with open(os.path.join(script_dir, 'html' + self.slash + 'main.html'), 'w', encoding="utf-8") as main_file:
+            main_file.write(str(self.main_html))
     
     def generate_html(self):
-        dest = "./documentation" + self.slash + "html"
-        src = "./documentation" + self.slash + "template"
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        dest = os.path.join(script_dir, 'html')
+        src = os.path.join(script_dir, 'template')
+
         copy_tree(src, dest)
 
     def read_conf(self):
@@ -217,11 +225,11 @@ class Docs():
         except:
             pass
 
-    def __del__(self):
-        with open("documentation" + self.slash + "html" + self.slash + "index.html", 'w', encoding="utf-8") as index_file:
-            index_file.write(str(self.index_html.prettify()))
-        with open("documentation" + self.slash + "html" + self.slash + "main.html", 'w', encoding="utf-8") as main_file:
-            main_file.write(str(self.main_html))
+    # def __del__(self):
+    #     with open(os.path.join(self.script_dir, 'html' + self.slash + 'index.html'), 'w', encoding="utf-8") as index_file:
+    #         index_file.write(str(self.index_html.prettify()))
+    #     with open(os.path.join(self.script_dir, 'html' + self.slash + 'main.html'), 'w', encoding="utf-8") as main_file:
+    #         main_file.write(str(self.main_html))
 
 
 Docs()
