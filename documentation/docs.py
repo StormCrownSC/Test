@@ -14,7 +14,7 @@ class Docs():
         self.documentation = ["conf.rst", "index.rst"]
         self.extra_files = list()
         self.caption_list = list()
-        self.slash = "\\" if platform == "linux" or platform == "linux2" else "/"
+        self.slash = "/" if platform == "linux" or platform == "linux2" else "\\"
         self.generate_html()
         self.soup = BeautifulSoup()
         script_dir = os.path.dirname(os.path.abspath(__file__))
