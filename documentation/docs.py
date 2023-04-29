@@ -219,7 +219,7 @@ class Docs():
 
     def __del__(self):
         with open("documentation" + self.slash + "html" + self.slash + "index.html", 'w', encoding="utf-8") as index_file:
-            index_file.write(str(self.index_html.prettify()))
+            index_file.write(str(self.index_html))
         with open("documentation" + self.slash + "html" + self.slash + "main.html", 'w', encoding="utf-8") as main_file:
             main_file.write(str(self.main_html))
 
