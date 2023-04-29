@@ -1,4 +1,3 @@
-"""Главный файл"""
 import os
 from datetime import date
 
@@ -6,15 +5,13 @@ import requests
 import telebot as tb
 from dotenv import load_dotenv
 
+load_dotenv()
 
-if __name__ == "__main__":
-    load_dotenv()
+BOT_TOKEN = os.getenv('BOT_TOKEN')
 
-    BOT_TOKEN = os.getenv('BOT_TOKEN')
+bot = tb.TeleBot(BOT_TOKEN)
 
-    bot = tb.TeleBot(BOT_TOKEN)
-
-    print("Бот успешно запущен!")
+print("Бот успешно запущен!")
 
 
 def get_timetable(key, value, period):
@@ -56,13 +53,12 @@ def get_timetable(key, value, period):
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
     text = """\
-Привет! Я бот, присылающий расписание МИРЭА.
-Список команд:
-- `/start`, `/help`: выводят это сообщение
-- `/timetable`, `/group`: присылает расписание группы
-- `/lecturer`: присылает расписание преподавателя
-- `/auditorium`: присылает расписание по аудитории
-"""
+        Привет! Я бот, присылающий расписание МИРЭА.
+        Список команд:
+        - `/start`, `/help`: выводят это сообщение
+        - `/timetable`, `/group`: присылает расписание группы
+        - `/lecturer`: присылает расписание преподавателя
+        - `/auditorium`: присылает расписание по аудитории"""
     bot.send_message(message.chat.id, text, parse_mode='Markdown')
 
 
