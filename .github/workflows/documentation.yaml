@@ -9,7 +9,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install bs4
-      - name: Sphinx build
+      - name: StormDocs build
         run: |
           python ./documentation/docs.py
       - name: Deploy
@@ -18,5 +18,5 @@ jobs:
         with:
           publish_branch: gh-pages
           github_token: ${{ secrets.DOCS_TOKEN }}
-          publish_dir: _build/
+          publish_dir: documentation/html/
           force_orphan: true
