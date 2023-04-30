@@ -16,7 +16,15 @@
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 25px;
-    color: #818181;
+    color: #c9c9c9;
+    display: block;
+}
+
+.sidenav p {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 30px;
+    color: #c9c9c9;
     display: block;
 }
 
