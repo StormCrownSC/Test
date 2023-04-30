@@ -215,14 +215,14 @@ class Docs():
                     self.read_file(item_path, index)
 
     def read_file(self, item_path, index):
-        if item_path.endswith('.py') or item_path.endswith('.go'):
-            comments = self.get_comments(item_path)
-            if comments:
-                self.read_title('Комментарии из файла {}:'.format(item_path), 4, index, 1)
+        # if item_path.endswith('.py') or item_path.endswith('.go'):
+        comments = self.get_comments(item_path)
+        if comments:
+            self.read_title('Комментарии из файла {}:'.format(item_path), 4, index, 1)
+            index += 1
+            for comment in comments:
+                self.read_text_p(comment, index, 1)
                 index += 1
-                for comment in comments:
-                    self.read_text_p(comment, index, 1)
-                    index += 1
 
     def get_comments(self, file_path):
         try:
