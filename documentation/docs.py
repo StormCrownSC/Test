@@ -154,10 +154,10 @@ class Docs():
         title.append(self.data["title"])
 
     def generate_side_nav(self):
-        ind = self.index_html.find("div",  {"class": "sidenav"})
-        main = self.main_html.find("div",  {"class": "sidenav"})
+        ind = self.index_html.find("div", {"class": "sidenav"})
+        main = self.main_html.find("div", {"class": "sidenav"})
 
-        new_h3 =  self.soup.new_tag("h3")
+        new_h3 = self.soup.new_tag("h3")
         new_a = self.soup.new_tag("a", attrs={"href": "index.html"})
         new_a.append(self.data["title"])
         new_h3.append(new_a)
@@ -165,7 +165,7 @@ class Docs():
         copy_h3 =  self.soup.new_tag("h3")
         copy_a = self.soup.new_tag("a", attrs={"href": "index.html"})
         copy_a.append(self.data["title"])
-        copy_h3.append(new_a)
+        copy_h3.append(copy_a)
 
         ind.append(new_h3)
         main.append(copy_h3)
